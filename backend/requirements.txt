@@ -2,3 +2,7 @@ transformers
 google-genai
 torch
 python-dotenv
+fastapi
+uvicorn
+pydantic
+python-multipart

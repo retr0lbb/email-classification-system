@@ -2,7 +2,7 @@ from app.ai.models import classifier_pipeline
 
 candidate_labels=[
     "Email que exige ação ou resposta ou contem informações importantes",
-    "Email apenas informativo ou social ou sem nexo e coesão"
+    "Email apenas informativo ou social ou sem nexo e coesão ou emails que pareçam suspeitos ou pedindo dinheiro"
 ]
 
 def classify_email(text: str) -> str:
