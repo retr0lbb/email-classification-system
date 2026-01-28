@@ -1,13 +1,9 @@
-from google import genai
-from google.genai import types
-from dotenv import load_dotenv
-import os
 from functools import lru_cache
 
 
 def generate_email_response(text: str, classification: str, geminiClient, GENERATION_CONFIG) -> str:
     response = geminiClient.models.generate_content(
-        model="gemini-2.5-flash-lite",  # Modelo mais recente e rápido
+        model="gemini-2.5-flash-lite",
         config=GENERATION_CONFIG,
         contents=f"CATEGORIA: {classification}\n\nEMAIL: {text}"
     )

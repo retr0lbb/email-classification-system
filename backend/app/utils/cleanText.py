@@ -25,4 +25,12 @@ def clean_text(text: str) -> str:
     # Remove caracteres estranhos
     text = re.sub(r"[^\w\s.,!?@%-]", "", text)
 
+    max_chars = 3000
+    if len(text) > max_chars:
+        start_portion = int(max_chars * 0.66)
+        end_portion = max_chars - start_portion
+        text = text[:start_portion] + "\n[...]\n" + text[-end_portion:]
+
+    print(text)
+
     return text.strip()
