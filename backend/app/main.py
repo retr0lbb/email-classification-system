@@ -53,6 +53,13 @@ async def classify_email_file(file: UploadFile = File(...)):
         result = DocumentParser.process_document(file_bytes, file.content_type)
 
         cleaned_text = result["cleaned_text"]
+        classification = classify_email(cleaned_text)
+
+        generatedText = generate_email_response(cleaned_text, classification, client, GENERATION_CONFIG)
+
+        return {"label": classification, "suggested_response": generatedText}
+
+        
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
     
@@ -60,4 +67,3 @@ async def classify_email_file(file: UploadFile = File(...)):
         print(e)
         raise HTTPException(status_code=500, detail="Erro ao processar arquivo")
     
-    return {"filename": cleaned_text}

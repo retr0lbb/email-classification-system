@@ -32,7 +32,6 @@ class DocumentParser:
         
         cleanedText = clean_text(raw_text or "")
 
-
         return {
             "cleaned_text": cleanedText,
         }
