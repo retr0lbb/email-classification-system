@@ -17,8 +17,3 @@ processamento total caiu de 6 para 2 segundos
 
 
 ### exemplos
-
-#### Email com falso negativo:
-Feliz festa de fim de ano, entretanto segue o relatorio Q3 de financas atrasado e um agradecimento espcial pela compreensao
-
-#### Email com falso positivo:

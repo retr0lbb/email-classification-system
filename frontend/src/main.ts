@@ -3,13 +3,12 @@ import './style.css'
 // Renderizar o HTML
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="container my-5">
-    <h1 class="text-center mb-4">Sistema de classificação de emails</h1>
+    <h1 class="text-center mb-4">Upload de Arquivos e Entrada de Texto</h1>
     
     <!-- Drop Zone -->
     <div class="card mb-4">
       <div class="card-header">
         <h5 class="mb-0">Upload de Arquivo</h5>
-        <p>Somente arquivos .TXT, .DOCX e .PDF</p>
       </div>
       <div class="card-body">
         <div class="drop-zone" id="dropZone">
@@ -54,31 +53,34 @@ const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement
 const clearBtn = document.getElementById('clearBtn') as HTMLButtonElement
 const selectFileBtn = document.getElementById('selectFileBtn') as HTMLButtonElement
 
-const FILE_UPLOAD_ROUTE = '/api/upload-file'
-const TEXT_SUBMIT_ROUTE = '/api/submit-text'
+// Configurações de rotas usando variáveis de ambiente
+const FILE_UPLOAD_ROUTE = import.meta.env.VITE_FILE_UPLOAD_ROUTE
+const TEXT_SUBMIT_ROUTE = import.meta.env.VITE_TEXT_SUBMIT_ROUTE
 
+// Prevenir comportamento padrão no drag and drop
 const preventDefaults = (e: Event) => {
   e.preventDefault()
   e.stopPropagation()
 }
 
-
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
   dropZone.addEventListener(eventName, preventDefaults, false)
 });
 
-['dragenter', 'dragover'].forEach((eventName: string) => {
+// Efeitos visuais ao arrastar
+['dragenter', 'dragover'].forEach(eventName => {
   dropZone.addEventListener(eventName, () => {
     dropZone.classList.add('dragover')
   })
 });
 
-['dragleave', 'drop'].forEach((eventName: string) => {
+['dragleave', 'drop'].forEach(eventName => {
   dropZone.addEventListener(eventName, () => {
     dropZone.classList.remove('dragover')
   })
 });
 
+// Formatar tamanho do arquivo
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes'
   const k = 1024

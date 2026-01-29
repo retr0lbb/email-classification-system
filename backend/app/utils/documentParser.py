@@ -1,10 +1,10 @@
 import pdfplumber
 from io import BytesIO
+from docx import Document
 
 from app.utils.cleanText import clean_text
 
 class DocumentParser:
-
     @staticmethod
     def extract_from_pdf(file_bytes: bytes) -> str:
         text = ""
@@ -22,11 +22,29 @@ class DocumentParser:
 
         return text
     
+    @staticmethod
+    def extract_from_docx(file_bytes: bytes) -> str:
+        text = ""
+        try: 
+            document = Document(BytesIO(file_bytes))
+
+            for paragraph in document.paragraphs:
+                if paragraph.text.strip():
+                    text += paragraph.text + "\n"
+
+        except Exception as e:
+            print(e)
+            pass
+
+        return text
+    
     @classmethod
     def process_document(cls, file_bytes: bytes, content_type: str) -> dict:
         raw_text = ""
         if content_type == "application/pdf":
             raw_text = cls.extract_from_pdf(file_bytes)
+        elif content_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            raw_text = cls.extract_from_docx(file_bytes)
         else:
             raise ValueError(f"Tipo de arquivo nao suportado: {content_type}")
         
@@ -35,6 +53,3 @@ class DocumentParser:
         return {
             "cleaned_text": cleanedText,
         }
-
-
-    

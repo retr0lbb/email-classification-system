@@ -1,20 +1,4 @@
-from google import genai
-from transformers import pipeline
 from google.genai import types
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-print("Carregando modelos de IA...")
-
-classifier_pipeline = pipeline(
-    "zero-shot-classification",
-    model="facebook/bart-large-mnli",
-)
-
-
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 SYSTEM_INSTRUCTION = """Você é um atendente de uma empresa financeira.
 Seu papel é responder emails de forma:
@@ -31,17 +15,14 @@ Regras:
 - NÃO use expressões como "[Nome da Empresa]", "[Seu nome]" ou similares.
 - Não utilize emojis.
 - Gere o texto como se fosse o e-mail final pronto para envio.
-- Você DEVE usar a alcunha de "Equipe de Atendimento" para campos como departamento e nome.
-- Use português formal."""
+- Você DEVE usar a alcunha de "Equipe de Atendimento".
+- Use português formal.
+"""
 
 GENERATION_CONFIG = types.GenerateContentConfig(
     system_instruction=SYSTEM_INSTRUCTION,
     temperature=0.7,
     max_output_tokens=512,
     top_p=0.95,
-    top_k=40
+    top_k=40,
 )
-
-print("Gemini client started with no problems")
-
-print("Modelos carregados com sucesso!")
