@@ -1,6 +1,7 @@
 import './style.css'
 import { LoadingManager } from './utils/loading-manager'
 
+
 // Renderizar o HTML
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="container my-5">
@@ -107,8 +108,8 @@ const copyResponseBtn = document.getElementById('copyResponseBtn') as HTMLButton
 
 const loadingButton = new LoadingManager(submitBtn)
 
-const FILE_UPLOAD_ROUTE = import.meta.env.VITE_FILE_UPLOAD_ROUTE ?? "http://localhost:8000/classify/file"
-const TEXT_SUBMIT_ROUTE = import.meta.env.VITE_TEXT_SUBMIT_ROUTE ?? "http://localhost:8000/classify/json"
+const FILE_UPLOAD_ROUTE = `${import.meta.env.VITE_BACKEND_URL}/classify/file`
+const TEXT_SUBMIT_ROUTE = `${import.meta.env.VITE_BACKEND_URL}/classify/json`
 
 const preventDefaults = (e: Event) => {
   e.preventDefault()
