@@ -1,6 +1,5 @@
 from google import genai
 from transformers import pipeline
-from google.genai import types
 from dotenv import load_dotenv
 import os
 
