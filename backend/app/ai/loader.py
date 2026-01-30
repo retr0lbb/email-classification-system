@@ -9,13 +9,13 @@ load_dotenv()
 
 def load_ai_models() -> None:
     if ai_state.classifier and ai_state.gemini_client:
-        return  # já carregado
+        return
 
     print("Carregando modelos de IA...")
 
     ai_state.classifier = pipeline(
         "zero-shot-classification",
-        model="facebook/bart-large-mnli",
+        model="MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
     )
 
     ai_state.gemini_client = genai.Client(
