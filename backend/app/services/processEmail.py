@@ -2,7 +2,7 @@ import time
 import asyncio
 from app.services.classifyService import ClassifyService
 from app.services.responserService import ResponderService
-from app.ai.models import GENERATION_CONFIG
+from app.ai.prompts import GENERATION_CONFIG
 
 class ProcessEmailService:
 

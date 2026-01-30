@@ -1,14 +1,29 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from concurrent.futures import ThreadPoolExecutor
+from dotenv import load_dotenv
+import os
 
 from app.services.processEmail import ProcessEmailService
 from app.utils.documentParser import DocumentParser
 from app.ai.loader import load_ai_models
 
+load_dotenv()
 
 
 app = FastAPI()
+
+frontend_url = os.getenv("FRONTEND_URL")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[frontend_url],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.on_event("startup")
 async def startup_event():
     load_ai_models()
