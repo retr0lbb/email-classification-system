@@ -21,8 +21,8 @@ Regras:
 
 GENERATION_CONFIG = types.GenerateContentConfig(
     system_instruction=SYSTEM_INSTRUCTION,
-    temperature=0.7,
-    max_output_tokens=512,
-    top_p=0.95,
+    temperature=0.6,         
+    max_output_tokens=1024,  
+    top_p=0.9,
     top_k=40,
 )
